@@ -18,8 +18,9 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
+
     - name: Configure aws credentials
-      uses: aws-credentials/configure-aws-credentials@v4
+      uses: aws-actions/configure-aws-credentials@v4  # ✅ corrigido
       with:
         aws-region: us-east-2
         role-to-assume: arn:aws:iam::261597939254:role/tf-role
@@ -29,11 +30,10 @@ jobs:
       with:
         terraform_version: 1.8.4
 
-    
     - name: Run terraform init
       run: terraform init
 
-    - name: Run terraform formate
+    - name: Run terraform format
       run: terraform fmt -check
 
     - name: Run terraform plan
