@@ -38,6 +38,10 @@ resource "aws_iam_role" "tf-role" {
       }
     ]
   })
+
+  tags = {
+    IAC = "True"
+  }
 }
 
 resource "aws_iam_role" "app-runner-role" {
