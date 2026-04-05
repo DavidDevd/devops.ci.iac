@@ -5,6 +5,10 @@ on:
     branches:
       - "main"
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
 
   run-terraform:
@@ -12,11 +16,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout
+      uses: actions/checkout@v4
     - name: Configure aws credentials
       uses: aws-credentials/configure-aws-credentials@v4
       with:
         aws-region: us-east-2
-        role-to-assume: ''
+        role-to-assume: arn:aws:iam::261597939254:role/tf-role
 
     - name: Setup terraform
       uses: hashicorp/setup-terraform@v3
@@ -29,3 +35,9 @@ jobs:
 
     - name: Run terraform formate
       run: terraform fmt -check
+
+    - name: Run terraform plan
+      run: terraform plan
+
+    - name: Run terraform apply
+      run: terraform apply -auto-approve

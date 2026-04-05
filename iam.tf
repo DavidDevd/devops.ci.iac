@@ -47,9 +47,9 @@ resource "aws_iam_role" "app-runner-role" {
     Version : "2012-10-17",
     Statement : [
       {
-        Effect    : "Allow",
+        Effect : "Allow",
         Principal : { Service : "build.apprunner.amazonaws.com" },
-        Action    : "sts:AssumeRole"
+        Action : "sts:AssumeRole"
       }
     ]
   })
