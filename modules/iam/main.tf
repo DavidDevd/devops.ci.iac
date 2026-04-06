@@ -1,19 +1,3 @@
-# OIDC Provider do GitHub Actions
-resource "aws_iam_openid_connect_provider" "github" {
-  url = "https://token.actions.githubusercontent.com"
-
-  client_id_list = ["sts.amazonaws.com"]
-
-  thumbprint_list = [
-    "2b18947a6a9fc7764fd8b5fb18a863b0c6dac24f"
-  ]
-
-  tags = {
-    IAC = "True"
-    Env = var.environment
-  }
-}
-
 # Role que o GitHub Actions assume para fazer deploy
 resource "aws_iam_role" "ecr-role" {
   name = "${var.environment}-ecr-role"
@@ -25,7 +9,7 @@ resource "aws_iam_role" "ecr-role" {
         Effect = "Allow"
         Action = "sts:AssumeRoleWithWebIdentity"
         Principal = {
-          Federated = aws_iam_openid_connect_provider.github.arn
+          Federated = var.oidc_provider_arn
         }
         Condition = {
           StringEquals = {

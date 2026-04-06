@@ -8,9 +8,10 @@ module "ecr" {
 module "iam" {
   source = "../../modules/iam"
 
-  environment = var.environment
-  github_org  = var.github_org
-  github_repo = var.github_repo
+  environment       = var.environment
+  github_org        = var.github_org
+  github_repo       = var.github_repo
+  oidc_provider_arn = "arn:aws:iam::261597939254:oidc-provider/token.actions.githubusercontent.com"
 }
 
 module "apprunner" {
