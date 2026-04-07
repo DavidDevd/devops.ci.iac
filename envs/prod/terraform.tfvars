@@ -3,7 +3,7 @@ environment  = "prod"
 github_org   = "DavidDevd"
 github_repo  = "devops.ci.api"
 service_name = "davops-api"
-image_tag    = "7d72fdc"
+image_tag    = "8e61658"
 
 environment_variables = {
   ENV = "prod"
