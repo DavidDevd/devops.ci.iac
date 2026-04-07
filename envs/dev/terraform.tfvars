@@ -7,4 +7,4 @@ image_tag    = "7d72fdc"
 
 environment_variables = {
   ENV = "dev"
-}
+} 
