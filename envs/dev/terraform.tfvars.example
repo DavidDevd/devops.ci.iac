@@ -4,10 +4,9 @@ environment = "dev"
 github_org  = "DavidDevd"
 github_repo = "devops.ci.api"
 
-service_name = "davops-api-dev"
+service_name = "davops-api"
 image_tag    = "latest"
 
 environment_variables = {
   ENV = "dev"
 }
-
