@@ -10,16 +10,20 @@ override.tf.json
 *_override.tf
 *_override.tf.json
 
-# Variáveis sensíveis
+# Local values and secrets
+*.tfvars
 *.tfvars.json
 secrets.tfvars
+!*.tfvars.example
 
-# OS
+# Local binaries
+terraform.exe
+
+# OS and editors
 .DS_Store
 Thumbs.db
-
-# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
+

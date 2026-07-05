@@ -1,0 +1,13 @@
+aws_region  = "us-east-1"
+environment = "prod"
+
+github_org  = "DavidDevd"
+github_repo = "devops.ci.api"
+
+service_name = "davops-api-prod"
+image_tag    = "latest"
+
+environment_variables = {
+  ENV = "prod"
+}
+

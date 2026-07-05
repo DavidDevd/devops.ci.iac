@@ -1,56 +1,71 @@
-# devops.ci.iac 🏗️
+# CI/CD Infrastructure With Terraform, ECR and AWS App Runner
 
-Infraestrutura como código (IaC) para provisionamento dos ambientes **dev** e **prod** 
-no AWS AppRunner utilizando Terraform.
+Infrastructure as Code project for deploying a containerized FastAPI application to AWS App Runner using Terraform.
 
+This repository is part of a pair:
 
-## Estrutura
+- Application repository: `DavidDevd/devops.ci.api`
+- Infrastructure repository: `DavidDevd/devops.ci.iac`
 
+## What This Project Shows
 
-devops.ci.iac/
-├── modules/
-│   ├── ecr/          # Repositório de imagens Docker
-│   ├── iam/          # Roles e políticas de acesso
-│   └── apprunner/    # Serviço de execução da aplicação
-├── envs/
-│   ├── dev/          # Ambiente de desenvolvimento
-│   └── prod/         # Ambiente de produção
-└── .github/
-└── workflows/
-└── terraform.yml
+- Terraform modules for ECR, IAM and App Runner
+- Separate `dev` and `prod` environments
+- GitHub Actions workflow for infrastructure validation
+- AWS IAM/OIDC design for GitHub-based deployments
+- Container image deployment through Amazon ECR
+- Runtime environment variables managed through Terraform inputs
 
+## Architecture
 
-## Pré-requisitos
+```text
+GitHub Actions
+  |
+  v
+Amazon ECR  ->  AWS App Runner
+  |
+  v
+FastAPI container from devops.ci.api
+```
 
-- Terraform >= 1.8.4
-- AWS CLI configurado
-- Bucket S3 `davops-terraform-state` criado
-- Role `tf-role` criada manualmente na AWS
+## Repository Structure
 
-## Como usar localmente
+```text
+envs/
+  dev/
+  prod/
+modules/
+  apprunner/
+  ecr/
+  iam/
+.github/
+  workflows/
+```
+
+## How To Use
+
+Create a local variables file from the example:
+
 ```bash
-# Ambiente dev
 cd envs/dev
-terraform init
-terraform plan
-terraform apply
-
-# Ambiente prod
-cd envs/prod
+cp terraform.tfvars.example terraform.tfvars
 terraform init
 terraform plan
 terraform apply
 ```
 
-## Ambientes
+Repeat the same flow under `envs/prod` for the production environment.
 
-| Ambiente | Branch | State |
-|----------|--------|-------|
-| dev | main | envs/dev/terraform.tfstate |
-| prod | main | envs/prod/terraform.tfstate |
+## Security Notes
 
-## Recursos provisionados
+- Real `.tfvars` files are ignored by Git.
+- Only `.tfvars.example` files are committed.
+- Terraform state files are ignored and must stay outside the repository.
+- AWS credentials should come from AWS CLI profiles, OIDC, or environment variables.
 
-- **ECR** — Repositório de imagens Docker por ambiente
-- **IAM** — OIDC Provider, roles e políticas
-- **AppRunner** — Serviço de execução da aplicação
+## Related Project
+
+The application deployed by this infrastructure is available at:
+
+https://github.com/DavidDevd/devops.ci.api
+
